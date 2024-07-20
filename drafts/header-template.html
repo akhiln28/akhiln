@@ -1,65 +1,20 @@
 <template id="header-template">
-    <style>
-        :host {
-            display: block;
-            background-color: white;
-            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 1rem 1.5rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        h1 {
-            font-size: 1.875rem;
-            font-weight: bold;
-            color: #1F2937;
-        }
-
-        nav ul {
-            display: flex;
-            gap: 1rem;
-            list-style-type: none;
-            padding: 0;
-        }
-
-        nav a {
-            color: #4B5563;
-            text-decoration: none;
-            transition: color 0.3s ease;
-        }
-
-        nav a:hover {
-            color: #1F2937;
-        }
-
-        slot[name="logo"]::slotted(*) {
-            font-size: 1.875rem;
-            font-weight: bold;
-            color: #1F2937;
-        }
-    </style>
-    <header>
-        <div class="container">
-            <slot name="logo">
-                <h1>My Blog</h1>
-            </slot>
-            <nav>
-                <slot name="navigation">
-                    <ul>
-                        <li><a href="index.html">Home</a></li>
-                        <li><a href="tech.html">Tech</a></li>
-                        <li><a href="lifestyle.html">Lifestyle</a></li>
-                        <li><a href="travel.html">Travel</a></li>
-                        <li><a href="about.html">About</a></li>
-                    </ul>
-                </slot>
-            </nav>
+     <link rel="stylesheet" href="output.css">
+    <header class="bg-white shadow">
+        <div class="container mx-auto px-6 py-4">
+            <div class="flex justify-between items-center">
+                <h1 class="text-3xl font-bold text-gray-800">My Blog</h1>
+                <nav>
+                    <slot name="navigation">
+                        <ul class="flex space-x-4">
+                            <li><a href="index.html" class="text-gray-600 hover:text-gray-800">Home</a></li>
+                            <li><a href="tech.html" class="text-gray-600 hover:text-gray-800">Tech</a></li>
+                            <li><a href="lifestyle.html" class="text-gray-600 hover:text-gray-800">Lifestyle</a></li>
+                            <li><a href="travel.html" class="text-gray-600 hover:text-gray-800">Travel</a></li>
+                            <li><a href="about.html" class="text-gray-600 hover:text-gray-800">About</a></li>
+                        </ul>
+                </nav>
+            </div>
         </div>
     </header>
 </template>

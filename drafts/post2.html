@@ -3,28 +3,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="date" content="2024-07-20">
     <title>Second Blog Post</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="article-component.js"></script>
+    <!-- <script src="https://cdn.tailwindcss.com"></script> -->
+    <link rel="stylesheet" href="output.css">
+    <script src="components.js"></script>
 </head>
 
 <body class="bg-gray-100">
-    <header class="bg-white shadow">
-        <div class="container mx-auto px-6 py-4">
-            <div class="flex justify-between items-center">
-                <h1 class="text-3xl font-bold text-gray-800">My Blog</h1>
-                <nav>
-                    <ul class="flex space
-                    -x-4">
-                        <li><a href="index.html" class="text-gray-600 hover:text-gray-800">Home</a></li>
-                        <li><a href="tech.html" class="text-gray-600 hover:text-gray-800">Tech</a></li>
-                        <li><a href="lifestyle.html" class="text-gray-600 hover:text-gray-800">Lifestyle</a></li>
-                        <li><a href="travel.html" class="text-gray-600 hover:text-gray-800">Travel</a></li>
-                        <li><a href="about.html" class="text-gray-600 hover:text-gray-800">About</a></li>
-                    </ul>
-                </nav>
-            </div>
-        </div>
-    </header>
+    <my-header></my-header>
 
     <main class="container mx-auto px-6 py-8">
         <section class="mb-8">
@@ -43,9 +28,5 @@
         </section>
     </main>
 
-    <footer class="bg-white shadow mt-8">
-        <div class="container mx-auto px-6 py-4">
-            <p class="text-center text-gray-600">© 2024 My Blog. All rights reserved.</p>
-        </div>
-    </footer>
+    <my-footer></my-footer>
 </body>

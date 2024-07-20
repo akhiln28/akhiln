@@ -1,0 +1,65 @@
+<template id="header-template">
+    <style>
+        :host {
+            display: block;
+            background-color: white;
+            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        h1 {
+            font-size: 1.875rem;
+            font-weight: bold;
+            color: #1F2937;
+        }
+
+        nav ul {
+            display: flex;
+            gap: 1rem;
+            list-style-type: none;
+            padding: 0;
+        }
+
+        nav a {
+            color: #4B5563;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        nav a:hover {
+            color: #1F2937;
+        }
+
+        slot[name="logo"]::slotted(*) {
+            font-size: 1.875rem;
+            font-weight: bold;
+            color: #1F2937;
+        }
+    </style>
+    <header>
+        <div class="container">
+            <slot name="logo">
+                <h1>My Blog</h1>
+            </slot>
+            <nav>
+                <slot name="navigation">
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="tech.html">Tech</a></li>
+                        <li><a href="lifestyle.html">Lifestyle</a></li>
+                        <li><a href="travel.html">Travel</a></li>
+                        <li><a href="about.html">About</a></li>
+                    </ul>
+                </slot>
+            </nav>
+        </div>
+    </header>
+</template>

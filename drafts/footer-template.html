@@ -1,0 +1,28 @@
+<template id="footer-template">
+    <style>
+        :host {
+            display: block;
+            background-color: white;
+            box-shadow: 0 -1px 3px 0 rgba(0, 0, 0, 0.1), 0 -1px 2px 0 rgba(0, 0, 0, 0.06);
+            margin-top: 2rem;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem 1.5rem;
+            text-align: center;
+        }
+
+        p {
+            color: #4B5563;
+        }
+    </style>
+    <footer>
+        <div class="container">
+            <slot>
+                <p>&copy; 2024 My Blog. All rights reserved.</p>
+            </slot>
+        </div>
+    </footer>
+</template>

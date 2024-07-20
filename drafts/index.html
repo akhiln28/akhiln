@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Blog</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="article-component.js"></script>
+</head>
+<body class="bg-gray-100">
+    <header class="bg-white shadow">
+        <div class="container mx-auto px-6 py-4">
+            <div class="flex justify-between items-center">
+                <h1 class="text-3xl font-bold text-gray-800">My Blog</h1>
+                <nav>
+                    <ul class="flex space-x-4">
+                        <li><a href="index.html" class="text-gray-600 hover:text-gray-800">Home</a></li>
+                        <li><a href="tech.html" class="text-gray-600 hover:text-gray-800">Tech</a></li>
+                        <li><a href="lifestyle.html" class="text-gray-600 hover:text-gray-800">Lifestyle</a></li>
+                        <li><a href="travel.html" class="text-gray-600 hover:text-gray-800">Travel</a></li>
+                        <li><a href="about.html" class="text-gray-600 hover:text-gray-800">About</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-6 py-8">
+        <section class="mb-8">
+            <h2 class="text-2xl font-semibold mb-4">Recent Posts</h2>
+            <my-article src="post1.html" title="First Blog Post"></my-article>
+            <my-article src="post2.html" title="Second Blog Post"></my-article>
+            <!-- Add more my-article elements for other blog posts -->
+        </section>
+
+        <section>
+            <h2 class="text-2xl font-semibold mb-4">About Me</h2>
+            <p class="bg-white p-4 rounded shadow">
+                Welcome to my blog! I'm passionate about [your interests].
+                Here, I share my thoughts on [blog topics].
+            </p>
+        </section>
+    </main>
+
+    <footer class="bg-white shadow mt-8">
+        <div class="container mx-auto px-6 py-4">
+            <p class="text-center text-gray-600">© 2024 My Blog. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>

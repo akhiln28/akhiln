@@ -81,6 +81,14 @@ async function loadTemplate(url) {
   return doc.querySelector('template');
 }
 
+async function loadStyles(url) {
+  const response = await fetch(url);
+  const text = await response.text();
+  const style = document.createElement('style');
+  style.textContent = text;
+  return style;
+}
+
 // Header Component
 class MyHeader extends HTMLElement {
   constructor() {
@@ -89,7 +97,11 @@ class MyHeader extends HTMLElement {
   }
 
   async connectedCallback() {
-    const template = await loadTemplate('header-template.html');
+    const [template, style] = await Promise.all([
+      loadTemplate('header-template.html'),
+      loadStyles('output.css')
+    ]);
+    this.shadowRoot.appendChild(style);
     this.shadowRoot.appendChild(template.content.cloneNode(true));
   }
 }
@@ -102,7 +114,11 @@ class MyFooter extends HTMLElement {
   }
 
   async connectedCallback() {
-    const template = await loadTemplate('footer-template.html');
+    const [template, style] = await Promise.all([
+      loadTemplate('footer-template.html'),
+      loadStyles('output.css')
+    ]);
+    this.shadowRoot.appendChild(style);
     this.shadowRoot.appendChild(template.content.cloneNode(true));
   }
 }

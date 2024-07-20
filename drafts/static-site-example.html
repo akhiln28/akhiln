@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -14,10 +13,12 @@
         }
     </style>
 </head>
-
 <body>
     <blog-header></blog-header>
-    <blog-post-list></blog-post-list>
+    <blog-post-list>
+        <blog-post title="Static Post 1" date="2024-07-19" content="This is a static blog post defined in HTML."></blog-post>
+        <blog-post title="Static Post 2" date="2024-07-20" content="Another static post. Web Components are flexible!"></blog-post>
+    </blog-post-list>
     <blog-footer></blog-footer>
 
     <!-- Header Template -->
@@ -59,7 +60,8 @@
             }
         </style>
         <div class="post-list">
-            <!-- Blog posts will be inserted here -->
+            <slot></slot>
+            <!-- Additional dynamic posts will be inserted here -->
         </div>
     </template>
 
@@ -111,6 +113,10 @@
                 }
             }
 
+            connectedCallback() {
+                this.render();
+            }
+
             render() {
                 const template = document.getElementById('blog-post-template');
                 const templateContent = template.content.cloneNode(true);
@@ -133,29 +139,32 @@
 
             connectedCallback() {
                 this.render();
+                this.addDynamicPosts();
             }
 
             render() {
                 const template = document.getElementById('blog-post-list-template');
                 const templateContent = template.content.cloneNode(true);
 
-                const postList = templateContent.querySelector('.post-list');
+                this.shadowRoot.appendChild(templateContent);
+            }
 
-                // Sample blog post data
-                const posts = [
-                    { title: "First Post", date: "2024-07-20", content: "This is my first blog post using Web Components!" },
-                    { title: "Second Post", date: "2024-07-21", content: "Web Components are awesome for creating modular websites!" }
+            addDynamicPosts() {
+                // Sample dynamic blog post data
+                const dynamicPosts = [
+                    { title: "Dynamic Post 1", date: "2024-07-21", content: "This is a dynamically added blog post!" },
+                    { title: "Dynamic Post 2", date: "2024-07-22", content: "Another dynamic post. We can mix static and dynamic content!" }
                 ];
 
-                posts.forEach(post => {
+                const postList = this.shadowRoot.querySelector('.post-list');
+
+                dynamicPosts.forEach(post => {
                     const blogPost = document.createElement('blog-post');
                     blogPost.setAttribute('title', post.title);
                     blogPost.setAttribute('date', post.date);
                     blogPost.setAttribute('content', post.content);
                     postList.appendChild(blogPost);
                 });
-
-                this.shadowRoot.appendChild(templateContent);
             }
         }
 
@@ -181,5 +190,4 @@
         customElements.define('blog-footer', BlogFooter);
     </script>
 </body>
-
 </html>

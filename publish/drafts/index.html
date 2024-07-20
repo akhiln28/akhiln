@@ -6,9 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Blog</title>
     <link rel="stylesheet" href="output.css">
-    <!-- <link rel="preload" href="header-template.html" as="fetch" type="text/html">
-    <link rel="preload" href="footer-template.html" as="fetch" type="text/html"> -->
-    <script src="components.js"></script>
+    <script src="myHeader.js"></script>
+    <script src="myFooter.js"></script>
 </head>
 
 <body class="bg-gray-100">
@@ -16,10 +15,16 @@
     <main class="container mx-auto px-6 py-8">
         <section class="mb-8">
             <h2 class="text-2xl font-semibold mb-4">Recent Posts</h2>
-            <my-article src="post1.html" title="First Blog Post"></my-article>
-            <my-article src="post2.html" title="Second Blog Post"></my-article>
-            <!-- Add more my-article elements for other blog posts -->
+            <a href="post1.html" class="block bg-white p-4 rounded shadow mb-4">
+                <h3 class="text-xl font-semibold mb-2">First Blog Post</h3>
+                <p class="text-gray-700">Welcome to my blog! I'm passionate about [your interests]. Here, I share my thoughts on [blog topics].</p>
+            </a>
+            <a href="post2.html" class="block bg-white p-4 rounded shadow">
+                <h3 class="text-xl font-semibold mb-2">Second Blog Post</h3>
+                <p class="text-gray-700">Welcome to my blog! I'm passionate about [your interests]. Here, I share my thoughts on [blog topics].</p>
+            </a>
         </section>
+
 
         <section>
             <h2 class="text-2xl font-semibold mb-4">About Me</h2>

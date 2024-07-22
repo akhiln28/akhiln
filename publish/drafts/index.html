@@ -6,8 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Blog</title>
     <link rel="stylesheet" href="output.css">
-    <script type="module" src="myHeader.js"></script>
-    <script type="module" src="myFooter.js"></script>
+    <style>
+        body { visibility: hidden; }
+    </style>
 </head>
 
 <body class="bg-gray-100">
@@ -36,5 +37,11 @@
     </main>
     <my-footer></my-footer>
 </body>
+
+<script type="module">
+    import('./components.js').then(() => {
+        document.body.style.visibility = 'visible';
+    });
+</script>
 
 </html>

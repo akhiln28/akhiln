@@ -1,20 +1,32 @@
-const htmlContent = await fetch('templates.html').then((response) => response.text());
-const template = (new DOMParser().parseFromString(htmlContent, 'text/html')).getElementById('footer-template');
-
 class MyFooter extends HTMLElement {
-    constructor () {
+    constructor() {
         super();
-        this.attachShadow({mode: 'open'});
+        this.attachShadow({ mode: 'open' });
     }
     connectedCallback() {
-        // this.innerHTML = `
-        // <footer class="bg-gray-800 text-white p-5">
-        //     <div class="container mx-auto">
-        //         <p class="text-center">© 2021 My Blog</p>
-        //     </div>
-        // </footer>
-        // `;
-        this.shadowRoot.appendChild(template.content.cloneNode(true));
+        this.shadowRoot.innerHTML = `
+        <style>
+            :host {
+                display: block;
+                margin-top: 2rem;
+                --background-color: #333;
+                color: white;
+            }
+            :host (prefers-color-scheme: dark) {
+                --background-color: white;
+                color: #333;
+            }
+            footer {
+                background-color: var(--background-color);
+                padding: 2rem;
+            }
+        </style>
+        <footer style="background-color: #333; padding: 2rem;">
+            <div class="container mx-auto">
+                <p style="text-align: center;">© 2024 Akhil N</p>
+            </div>
+        </footer>
+        `;
     }
 }
 customElements.define('my-footer', MyFooter);

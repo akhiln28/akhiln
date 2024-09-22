@@ -1,33 +1,66 @@
-const htmlContent = await fetch('templates.html').then((response) => response.text());
-const template = (new DOMParser().parseFromString(htmlContent, 'text/html')).getElementById('header-template');
-
-console.log(template)
-
 class MyHeader extends HTMLElement {
     constructor () {
         super();
         this.attachShadow({mode: 'open'});
     }
     connectedCallback() {
-        // this.innerHTML = `
-        // <header class="bg-white shadow">
-        //     <div class="container mx-auto px-6 py-4">
-        //         <div class="flex justify-between items-center">
-        //             <h1 class="text-3xl font-bold text-gray-800">My Blog</h1>
-        //             <nav>
-        //                 <ul class="flex space-x-4">
-        //                     <li><a href="index.html" class="text-gray-600 hover:text-gray-800">Home</a></li>
-        //                     <li><a href="tech.html" class="text-gray-600 hover:text-gray-800">Tech</a></li>
-        //                     <li><a href="lifestyle.html" class="text-gray-600 hover:text-gray-800">Lifestyle</a></li>
-        //                     <li><a href="travel.html" class="text-gray-600 hover:text-gray-800">Travel</a></li>
-        //                     <li><a href="about.html" class="text-gray-600 hover:text-gray-800">About</a></li>
-        //                 </ul>
-        //             </nav>
-        //         </div>
-        //     </div>
-        // </header>
-        // `
-        this.shadowRoot.appendChild(template.content.cloneNode(true));
+        this.shadowRoot.innerHTML = `
+        <style>
+            :host {
+                display: block;
+                margin-bottom: 2rem;
+                --background-color: white;
+            }
+            :host (prefers-color-scheme: dark) {
+                --background-color: #333;
+            }
+
+            header {
+                background-color: var(--background-color);
+                box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
+                padding: 16px;
+            }
+
+            .logo {
+                font-size: 24px;
+                font-weight: bold;
+                color: #333;
+            }
+            nav {
+                display: flex;
+                justify-content: flex-end;
+                margin-top: 1rem;
+                gap: 2rem;
+            }
+            .nav-item {
+                margin-left: 16px;
+            }
+
+            .nav-link {
+                color: #666;
+                text-decoration: none;
+            }
+
+            .nav-link:hover {
+                color: #000;
+            }
+        </style>
+
+        <header>
+            <div style="max-width: 960px; margin: 0 auto;">
+                <div class="logo">My Blog</div>
+                <nav>
+                    <slot name="nav-items">
+                        <a href="index.html" class="nav-link">Home</a>
+                        <a href="tech.html" class="nav-link">Tech</a>
+                        <a href="lifestyle.html" class="nav-link">Lifestyle</a>
+                        <a href="travel.html" class="nav-link">Travel</a>
+                        <a href="about.html" class="nav-link">About</a>
+                    </slot>
+                </nav>
+            </div>
+        </header>
+        `;
     }
 
 }

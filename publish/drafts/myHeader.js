@@ -1,67 +1,345 @@
+// Custom element whose style is copied from global.css 
+const styleString = `
+/* Styles based on the book refactoring UI */
+:host {
+    /* Light theme colors */
+    --color-bg: hsl(220, 0%, 100%);
+    --color-text: hsl(220, 10%, 20%);
+    --color-primary-0: hsl(220, 100%, 90%);
+    --color-primary-1: hsl(220, 100%, 80%);
+    --color-primary-2: hsl(220, 100%, 70%);
+    --color-primary-3: hsl(220, 100%, 60%);
+    --color-primary-4: hsl(220, 100%, 50%);
+    --color-primary-5: hsl(220, 100%, 40%);
+    --color-primary-6: hsl(220, 100%, 30%);
+    --color-primary-7: hsl(220, 100%, 20%);
+    --color-primary-8: hsl(220, 100%, 10%);
+
+    --color-neutral-0: hsl(220, 0%, 90%);
+    --color-neutral-1: hsl(220, 0%, 85%);
+    --color-neutral-2: hsl(220, 0%, 70%);
+    --color-neutral-3: hsl(220, 0%, 60%);
+    --color-neutral-4: hsl(220, 0%, 50%);
+    --color-neutral-5: hsl(220, 0%, 40%);
+    --color-neutral-6: hsl(220, 0%, 30%);
+    --color-neutral-7: hsl(220, 0%, 20%);
+
+    /* Valid accent */
+    --color-accent-green-0: hsl(120, 60%, 90%);
+    --color-accent-green-1: hsl(120, 60%, 80%);
+    --color-accent-green-2: hsl(120, 60%, 70%);
+    --color-accent-green-3: hsl(120, 60%, 60%);
+    --color-accent-green-4: hsl(120, 60%, 50%);
+    --color-accent-green-5: hsl(120, 60%, 40%);
+    --color-accent-green-6: hsl(120, 60%, 30%);
+    --color-accent-green-7: hsl(120, 60%, 20%);
+
+    /* Error accent */
+    --color-accent-red-0: hsl(0, 100%, 90%);
+    --color-accent-red-1: hsl(0, 100%, 80%);
+    --color-accent-red-2: hsl(0, 100%, 70%);
+    --color-accent-red-3: hsl(0, 100%, 60%);
+    --color-accent-red-4: hsl(0, 100%, 50%);
+    --color-accent-red-5: hsl(0, 100%, 40%);
+    --color-accent-red-6: hsl(0, 100%, 30%);
+    --color-accent-red-7: hsl(0, 100%, 20%);
+
+    /* Warning accent */
+    --color-accent-yellow-0: hsl(40, 100%, 90%);
+    --color-accent-yellow-1: hsl(40, 100%, 80%);
+    --color-accent-yellow-2: hsl(40, 100%, 70%);
+    --color-accent-yellow-3: hsl(40, 100%, 60%);
+    --color-accent-yellow-4: hsl(40, 100%, 50%);
+    --color-accent-yellow-5: hsl(40, 100%, 40%);
+    --color-accent-yellow-6: hsl(40, 100%, 30%);
+    --color-accent-yellow-7: hsl(40, 100%, 20%);
+
+    /* Font sizes */
+    --font-size-xs: 0.75rem;
+    --font-size-sm: 0.875rem;
+    --font-size-md: 1rem;
+    --font-size-lg: 1.125rem;
+    --font-size-xl: 1.25rem;
+
+    /* Spacing */
+    --spacing-xs: 0.25rem;
+    --spacing-sm: 0.5rem;
+    --spacing-md: 1rem;
+    --spacing-lg: 1.5rem;
+    --spacing-xl: 2rem;
+}
+
+@media (prefers-color-scheme: dark) {
+    :host {
+        /* Dark theme colors */
+        --color-bg: hsl(220, 10%, 10%);
+        --color-text: hsl(220, 10%, 80%);
+        --color-primary-0: hsl(220, 100%, 10%);
+        --color-primary-1: hsl(220, 100%, 20%);
+        --color-primary-2: hsl(220, 100%, 30%);
+        --color-primary-3: hsl(220, 100%, 40%);
+        --color-primary-4: hsl(220, 100%, 50%);
+        --color-primary-5: hsl(220, 100%, 60%);
+        --color-primary-6: hsl(220, 100%, 70%);
+        --color-primary-7: hsl(220, 100%, 80%);
+        --color-primary-8: hsl(220, 100%, 90%);
+
+        /* Neutral colors */
+        --color-neutral-0: hsl(220, 10%, 20%);
+        --color-neutral-1: hsl(220, 10%, 25%);
+        --color-neutral-2: hsl(220, 10%, 40%);
+        --color-neutral-3: hsl(220, 10%, 50%);
+        --color-neutral-4: hsl(220, 10%, 60%);
+        --color-neutral-5: hsl(220, 10%, 70%);
+        --color-neutral-6: hsl(220, 10%, 80%);
+        --color-neutral-7: hsl(220, 10%, 90%);
+
+        /* Valid accent */
+        --color-accent-green-0: hsl(120, 60%, 20%);
+        --color-accent-green-1: hsl(120, 60%, 30%);
+        --color-accent-green-2: hsl(120, 60%, 40%);
+        --color-accent-green-3: hsl(120, 60%, 50%);
+        --color-accent-green-4: hsl(120, 60%, 60%);
+        --color-accent-green-5: hsl(120, 60%, 70%);
+        --color-accent-green-6: hsl(120, 60%, 80%);
+        --color-accent-green-7: hsl(120, 60%, 90%);
+
+        /* Error accent */
+        --color-accent-red-0: hsl(0, 100%, 20%);
+        --color-accent-red-1: hsl(0, 100%, 30%);
+        --color-accent-red-2: hsl(0, 100%, 40%);
+        --color-accent-red-3: hsl(0, 100%, 50%);
+        --color-accent-red-4: hsl(0, 100%, 60%);
+        --color-accent-red-5: hsl(0, 100%, 70%);
+        --color-accent-red-6: hsl(0, 100%, 80%);
+        --color-accent-red-7: hsl(0, 100%, 90%);
+
+        /* Warning accent */
+        --color-accent-yellow-0: hsl(40, 100%, 20%);
+        --color-accent-yellow-1: hsl(40, 100%, 30%);
+        --color-accent-yellow-2: hsl(40, 100%, 40%);
+        --color-accent-yellow-3: hsl(40, 100%, 50%);
+        --color-accent-yellow-4: hsl(40, 100%, 60%);
+        --color-accent-yellow-5: hsl(40, 100%, 70%);
+        --color-accent-yellow-6: hsl(40, 100%, 80%);
+        --color-accent-yellow-7: hsl(40, 100%, 90%);
+    }
+}
+
+:host {
+    --container-max-width: 1200px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 640px) {
+    :host {
+        --container-max-width: 640px;
+    }
+}
+
+@media (max-width: 768px) {
+    :host {
+        --container-max-width: 768px;
+    }
+}
+
+@media (max-width: 1024px) {
+    :host {
+        --container-max-width: 1024px;
+    }
+}
+
+@media (max-width: 1280px) {
+    :host {
+        --container-max-width: 1280px;
+    }
+}
+
+@media (max-width: 1536px) {
+    :host {
+        --container-max-width: 1536px;
+    }
+}
+
+/* Responsive container class i.e based on the screen width*/
+.container {
+    width: 100%;
+    max-width: var(--container-max-width);
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: var(--spacing-md);
+    padding-right: var(--spacing-md);
+}
+
+/* Global styles */
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+        Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+    font-size: var(--font-size-md);
+    line-height: 1.5;
+    color: var(--color-text);
+    background-color: var(--color-bg);
+    margin: 0;
+    padding: 0;
+}
+
+main {
+    padding-top: var(--spacing-lg);
+    padding-bottom: var(--spacing-lg);
+    width: var(--container-max-width);
+    margin: 0 auto;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    margin-top: var(--spacing-lg);
+    margin-bottom: var(--spacing-md);
+    line-height: 1.2;
+}
+
+h1 {
+    font-size: var(--font-size-xl);
+}
+
+h2 {
+    font-size: var(--font-size-lg);
+}
+
+h3 {
+    font-size: var(--font-size-md);
+}
+
+h4,
+h5,
+h6 {
+    font-size: var(--font-size-sm);
+}
+
+p {
+    margin-bottom: var(--spacing-md);
+}
+
+a {
+    color: var(--color-primary-5);
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* Form elements */
+input,
+textarea,
+select {
+    font-size: var(--font-size-md);
+    padding: var(--spacing-xs) var(--spacing-sm);
+    border: 1px solid var(--color-neutral-1);
+    background-color: var(--color-neutral-1);
+    border-radius: 4px;
+    color: var(--color-text);
+    box-shadow: inset 0 1px 2px var(--color-neutral-1);
+    transition:
+        background-color 0.2s,
+        border-color 0.2s;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+    border-color: var(--color-primary-5);
+    background-color: var(--color-neutral-0);
+    box-shadow: 0 0 0 2px var(--color-primary-5);
+}
+
+button {
+    font-size: var(--font-size-md);
+    padding: var(--spacing-xs) var(--spacing-md);
+    background-color: var(--color-primary-3);
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+button:hover {
+    background-color: var(--color-primary-4);
+}
+
+/* Lists */
+ul,
+ol {
+    margin-bottom: var(--spacing-md);
+    padding-left: var(--spacing-lg);
+}
+
+/* Table */
+table {
+    border-collapse: collapse;
+    width: 100%;
+    margin-bottom: var(--spacing-md);
+}
+
+th,
+td {
+    border: 1px solid var(--color-muted);
+    padding: var(--spacing-xs) var(--spacing-sm);
+    text-align: left;
+}
+
+th {
+    background-color: var(--color-neutral-0);
+    font-weight: bold;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    :host {
+        --font-size-xl: 1.125rem;
+        --font-size-lg: 1rem;
+        --font-size-md: 0.875rem;
+        --font-size-sm: 0.75rem;
+        --font-size-xs: 0.675rem;
+    }
+
+    body {
+        font-size: var(--font-size-sm);
+    }
+}
+`;
 class MyHeader extends HTMLElement {
-    constructor () {
+    constructor() {
         super();
-        this.attachShadow({mode: 'open'});
+        this.attachShadow({ mode: 'open' });
     }
     connectedCallback() {
         this.shadowRoot.innerHTML = `
-        <style>
-            :host {
-                display: block;
-                margin-bottom: 2rem;
-                --background-color: white;
-            }
-            :host (prefers-color-scheme: dark) {
-                --background-color: #333;
-            }
+    <style>
+       ${styleString}
+    </style>
 
-            header {
-                background-color: var(--background-color);
-                box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
-                padding: 16px;
-            }
-
-            .logo {
-                font-size: 24px;
-                font-weight: bold;
-                color: #333;
-            }
-            nav {
-                display: flex;
-                justify-content: flex-end;
-                margin-top: 1rem;
-                gap: 2rem;
-            }
-            .nav-item {
-                margin-left: 16px;
-            }
-
-            .nav-link {
-                color: #666;
-                text-decoration: none;
-            }
-
-            .nav-link:hover {
-                color: #000;
-            }
-        </style>
-
-        <header>
-            <div style="max-width: 960px; margin: 0 auto;">
-                <div class="logo">My Blog</div>
-                <nav>
-                    <slot name="nav-items">
-                        <a href="index.html" class="nav-link">Home</a>
-                        <a href="tech.html" class="nav-link">Tech</a>
-                        <a href="lifestyle.html" class="nav-link">Lifestyle</a>
-                        <a href="travel.html" class="nav-link">Travel</a>
-                        <a href="about.html" class="nav-link">About</a>
-                    </slot>
-                </nav>
-            </div>
-        </header>
-        `;
+    <header>
+        <div class="container">
+            <h1>Akhil N</h1>
+            <nav style="display: flex; gap: 1rem;">
+                <slot name="nav-items">
+                    <a href="index.html" class="nav-link">Home</a>
+                    <a href="tech.html" class="nav-link">Tech</a>
+                    <a href="lifestyle.html" class="nav-link">Lifestyle</a>
+                    <a href="travel.html" class="nav-link">Travel</a>
+                    <a href="about.html" class="nav-link">About</a>
+                </slot>
+            </nav>
+        </div>
+    </header>
+`;
     }
 
 }
+
 customElements.define('my-header', MyHeader);

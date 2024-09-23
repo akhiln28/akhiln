@@ -192,7 +192,7 @@ main {
 footer {
     padding-top: var(--spacing-lg);
     padding-bottom: var(--spacing-lg);
-    background-color: var(--color-neutral-0);
+    background-color: var(--color-neutral-7);
     text-align: center;
 }
 

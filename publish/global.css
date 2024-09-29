@@ -182,10 +182,12 @@ body {
 }
 
 main {
-    padding-top: var(--spacing-lg);
-    padding-bottom: var(--spacing-lg);
+    padding: var(--spacing-lg);
+    border-radius: 0.5rem;
+    box-shadow: 0 0 0.5rem rgba(0, 0, 0, 0.1);
     width: var(--container-max-width);
     margin: 0 auto;
+    margin-bottom: var(--spacing-lg);
 }
 
 footer {

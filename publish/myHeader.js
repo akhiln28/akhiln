@@ -330,8 +330,7 @@ class MyHeader extends HTMLElement {
                 <slot name="nav-items">
                     <a href="index.html" class="nav-link">Home</a>
                     <a href="tech.html" class="nav-link">Tech</a>
-                    <a href="lifestyle.html" class="nav-link">Lifestyle</a>
-                    <a href="travel.html" class="nav-link">Travel</a>
+                    <a href="science.html" class="nav-link">Science</a>
                     <a href="about.html" class="nav-link">About</a>
                 </slot>
             </nav>

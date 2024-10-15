@@ -2,53 +2,57 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Web components over frameworks</title>
-    <link rel="stylesheet" href="https://assets.grepwise.com/global.css">
-    <script src="myHeader.js"></script>
-    <script src="myFooter.js"></script>
-    <my-header></my-header>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Web components over frameworks</title>
+  <link rel="stylesheet" href="https://assets.grepwise.com/global.css">
+  <nav>
+    <a href="/index.html">Home</a>
+    <a href="/tech.html">Tech</a>
+    <a href="/science.html">Science</a>
+    <a href="/about.html">About</a>
+    <a href="/resume.html">Resume</a>
+  </nav>
 </head>
 
 <body>
-    <h1>Web components over frameworks</h1>
-    <blockquote>
-        The main motivation for using the frontend frameworks like react and others is to be able to create modular
-        components that can be used (reused) together to create a new component.
-    </blockquote>
-    <p>
-        To elaborate what I mean by that let's say your website has a navigation header, footer and sidebar. You
-        need to include the html for them in each and every html page of your website. The only way to do this
-        earlier is to copy paste the same html code in each and every html page This is much harder to maintain. Or create a script that will create a new html element and append it somewhere in the body. This solves the problem of reusing the code, but it is not a nice user experience. The browser will first render the page without the header and footer and then render the header and footer. This is not a nice user experience.
-    <p>
-    <p>
-        There is no way to do that before without using frontend frameworks earlier. But after the introduction
-        of web components, you can create such reusable components without any frameworks or additional tooling.
-    </p>
-    <ul>
-        <li>Browser can't understand react code.</li>
-        <li>We can't write a react application without using node.</li>
-        <li>React and such frameworks don't respect the html semantics. This might result in less accessible web
-            pages.</li>
-        <li>There is a lot of additional tooling required to use react like node, npm, webpack, babel, etc.</li>
-    </ul>
+  <h1>Web components over frameworks</h1>
+  <blockquote>
+    The main motivation for using the frontend frameworks like react and others is to be able to create modular
+    components that can be used (reused) together to create a new component.
+  </blockquote>
+  <p>
+    To elaborate what I mean by that let's say your website has a navigation header, footer and sidebar. You
+    need to include the html for them in each and every html page of your website. The only way to do this
+    earlier is to copy paste the same html code in each and every html page This is much harder to maintain. Or create a script that will create a new html element and append it somewhere in the body. This solves the problem of reusing the code, but it is not a nice user experience. The browser will first render the page without the header and footer and then render the header and footer. This is not a nice user experience.
+  <p>
+  <p>
+    There is no way to do that before without using frontend frameworks earlier. But after the introduction
+    of web components, you can create such reusable components without any frameworks or additional tooling.
+  </p>
+  <ul>
+    <li>Browser can't understand react code.</li>
+    <li>We can't write a react application without using node.</li>
+    <li>React and such frameworks don't respect the html semantics. This might result in less accessible web
+      pages.</li>
+    <li>There is a lot of additional tooling required to use react like node, npm, webpack, babel, etc.</li>
+  </ul>
 
-    I agree that html might not be nice to write or look at, but it has all the semantics that a browser can
-    understand.
-    <p>
-        In this context, the less dependencies you have, the easier it is to maintain your code, the easier it is to
-        make changes, the easier it is to port it to another project and so on, the easier it is to later switch to
-        another dependencies.
-    </p>
-    <blockquote> You will have freedom.
-    </blockquote>
-    Web components are a set of web platform APIs that allow you to create new custom, reusable, encapsulated HTML
-    tags to use in web pages and web apps.
+  I agree that html might not be nice to write or look at, but it has all the semantics that a browser can
+  understand.
+  <p>
+    In this context, the less dependencies you have, the easier it is to maintain your code, the easier it is to
+    make changes, the easier it is to port it to another project and so on, the easier it is to later switch to
+    another dependencies.
+  </p>
+  <blockquote> You will have freedom.
+  </blockquote>
+  Web components are a set of web platform APIs that allow you to create new custom, reusable, encapsulated HTML
+  tags to use in web pages and web apps.
 
-    <p>
-        The hard part of development is not to write the code, but to maintain it. Once you realize that
-        creating web components is not that much different compared to creating class components in react, you will
-        see that you can create a lot of reusable components that can be used in any project.
-    </p>
+  <p>
+    The hard part of development is not to write the code, but to maintain it. Once you realize that
+    creating web components is not that much different compared to creating class components in react, you will
+    see that you can create a lot of reusable components that can be used in any project.
+  </p>
 </body>

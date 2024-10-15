@@ -496,7 +496,7 @@ class MyHeader extends HTMLElement {
                     <a href="tech.html" class="nav-link">Tech</a>
                     <a href="science.html" class="nav-link">Science</a>
                     <a href="about.html" class="nav-link">About</a>
-                    <a href="resume.html" class="nav-link">Contact</a>
+                    <a href="resume.html" class="nav-link">Resume</a>
                 </slot>
             </nav>
         </div>

@@ -326,7 +326,7 @@ class MyHeader extends HTMLElement {
     <header>
         <div class="container">
             <h1>Akhil N</h1>
-            <nav style="display: flex; gap: 1rem;">
+            <nav style="display: flex; gap: 1rem; justify-content: center;">
                 <slot name="nav-items">
                     <a href="index.html" class="nav-link">Home</a>
                     <a href="tech.html" class="nav-link">Tech</a>

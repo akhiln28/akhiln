@@ -61,7 +61,7 @@ dependencies = [
 [[package]]
 name = "command"
 version = "0.1.0"
-source = "git+ssh://git@github.com/grepwise/rust-crates.git?branch=main#bc6d58e9bc8307e8996ea3c055d0dc9e4f5a95db"
+source = "git+ssh://git@github.com/grepwise/rust-crates.git?branch=main#e526e1273f10fa089eae7b6ac60d56c7e1f20df8"
 
 [[package]]
 name = "core-foundation-sys"
@@ -78,7 +78,7 @@ checksum = "7d71d3574edd2771538b901e6549113b4006ece66150fb69c0fb6d9a2adae946"
 [[package]]
 name = "httplib"
 version = "0.1.0"
-source = "git+ssh://git@github.com/grepwise/rust-crates.git?branch=main#bc6d58e9bc8307e8996ea3c055d0dc9e4f5a95db"
+source = "git+ssh://git@github.com/grepwise/rust-crates.git?branch=main#e526e1273f10fa089eae7b6ac60d56c7e1f20df8"
 dependencies = [
  "chrono",
  "log 0.1.0",
@@ -125,7 +125,7 @@ checksum = "8e9489c2807c139ffd9c1794f4af0ebe86a828db53ecdc7fea2111d0fed085d1"
 [[package]]
 name = "log"
 version = "0.1.0"
-source = "git+ssh://git@github.com/grepwise/rust-crates.git?branch=main#bc6d58e9bc8307e8996ea3c055d0dc9e4f5a95db"
+source = "git+ssh://git@github.com/grepwise/rust-crates.git?branch=main#e526e1273f10fa089eae7b6ac60d56c7e1f20df8"
 dependencies = [
  "chrono",
 ]

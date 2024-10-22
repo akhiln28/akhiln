@@ -5,14 +5,14 @@ use std::io::{Read, Write};
 use std::net::TcpStream;
 use std::sync::LazyLock;
 
-pub static PATHS_EXCLUDED_FROM_AUTH: [&str; 3] =
-    ["/api/healthcheck", "/api/login", "/login/index.html"];
+pub static PATHS_EXCLUDED_FROM_AUTH: [&str; 1] = ["/api/healthcheck"];
 
 pub static FOLDER_PATH: LazyLock<String> = std::sync::LazyLock::new(|| {
     let static_dir = std::env::var("FOLDER_PATH").expect("FOLDER_PATH not set");
     return static_dir;
 });
 
+// TODO: create command to generate the sitemap from the folder path
 fn main() -> Result<(), String> {
     let args: Vec<String> = std::env::args().skip(1).collect::<Vec<String>>();
     let server_cmd = Command {

@@ -1,0 +1,11 @@
+[package]
+name = "server"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+httplib = { git = "ssh://git@github.com/grepwise/rust-crates.git", branch = "main" }
+log = { git = "ssh://git@github.com/grepwise/rust-crates.git", branch = "main" }
+command = { git = "ssh://git@github.com/grepwise/rust-crates.git", branch = "main" }
+httparse = "1.9.4"
+

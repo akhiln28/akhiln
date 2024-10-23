@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document management</title>
+  <meta name="date" content="2024-10-23">
+  <link rel="stylesheet" href="https://assets.grepwise.com/global.css">
+  <nav style="display: flex; justify-content: space-between; margin-top: 1rem; margin-bottom: 1rem;">
+    <a href="/index">Home</a>
+    <div style="display: flex; gap: 1rem;">
+      <a href="/tech">Tech</a>
+      <a href="/science">Science</a>
+      <a href="/projects">Projects</a>
+      <a href="/about">About</a>
+      <a href="/resume">Resume</a>
+    </div>
+  </nav>
+</head>
+
+<body>
+  <h1 id="document-management">Document management</h1>
+
+  <p>In this article we are going to discuss the tools available at our disposal for managing documents (html
+    documents).</p>
+
+  <p>We want to be able to do the following with ease:</p>
+
+  <h2>Editing html document: faster than editing markdown</h2>
+  <h4>Problems</h4>
+  <ol>
+    <li>Renaming/moving html documents: should update the backlinks</li>
+    <li>Hyperlink navigation: should be able to navigate across the documents using hyperlinks</li>
+  </ol>
+
+  <ol>
+    <li>using vim</li>
+    <li>using nvim/vscode with few plugins makes editing much faster</li>
+  </ol>
+
+  <h2>Bulk manipulation</h2>
+
+  <p>For bulk manipulation of the documents</p>
+
+  <p>When we have to make changes to multiple documents, we can use the following tools:</p>
+
+  <h3 id="sed"><code>sed</code></h3>
+
+  <p>
+    <a href="https://www.gnu.org/software/sed/manual/sed.html">Sed</a> is a stream editor. A stream editor is used to perform basic text transformations on an input stream (a file or input from a pipeline). While in some ways similar to an editor which permits scripted edits (such as ed), sed works by making only one pass over the input(s), and is consequently more efficient. But it is sed's ability to filter text in a pipeline which particularly distinguishes it from other types of editors.
+  </p>
+
+  <p>While creating documents we might need to reuse the same html code such as header, footer in multiple documents. One approach to solve this is to use webcomponents to encapsulate an html code that need to be used across multiple documents. But often times simple html document manipulation tools in the command line gets the job done.</p>
+
+  <p>
+   We can use sed to replace a string in multiple files. For example, if we want to replace all occurences of "div" with "nav" in all html files in a directory, we can use the following command: <br>
+
+   <code style="display: block;">
+    sed -i 's/div/nav/g' *.html
+   </code>
+  </p>
+
+  <p>
+    We can replace a complete html tag with another tag using sed. For example, if we want to replace all occurences of "div" with "nav" in all html files in a directory, we can use the following command: <br>
+  </p>
+
+  <h3 id="htmlq"><code>htmlq</code></h3>
+
+  <p>
+    We can use htmlq to query html documents using css selectors. For example, if we want to get all the links in a html document, we can use the following command: <br>
+
+    <code style="display: block;">
+      htmlq -i a
+    </code>
+  </p>
+
+  <h3><code>jsdom</code> in Javascript</h3>
+
+  <p>
+    As an alternative to using webcomponents, we can use jsdom to manipulate html documents in javascript. For example, if we want to update all occurences of a header in a html document, we can use the following code: <br> 
+
+    <code style="display: block;">
+      import { JSDOM } from 'jsdom';
+      import walkdir from 'walkdir';
+      import fs from 'fs';
+
+      const newHeader = `
+        &lt;header&gt;
+          New header
+        &lt;/header&gt;
+      `;
+
+      function updateHeader(file, newHeader) {
+        const html = fs.readFileSync(file, 'utf8');
+        const dom = new JSDOM(html);
+
+        const document = dom.window.document;
+        const header = document.querySelector('header');
+        header.innerHTML = newHeader;
+        fs.writeFileSync(file, dom.serialize());
+      }
+
+      function applyToAllFiles(dir, func) {
+        walkdir.sync(dir, (path) =&gt {
+          if (path.endsWith('.html')) {
+            func(path);
+          }
+        });
+      }
+
+      applyToAllFiles('./', (file) =&gt {
+        updateHeader(file, newHeader);
+      });
+    </code>
+  </p>
+</body>
+
+</html>

@@ -1,8 +1,6 @@
 class AkhilHeader extends HTMLElement {
   connectedCallback() {
     this.innerHTML = `
-    <header>
-        <div class="container">
           <nav style="display: flex; 
                 justify-content: space-between; 
                 margin-top: 1rem; 
@@ -16,9 +14,7 @@ class AkhilHeader extends HTMLElement {
               <a href="/resume-without-tailwind/">Resume</a>
             </div>
           </nav>
-        </div>
-    </header>
-`;
+        `;
   }
 }
 

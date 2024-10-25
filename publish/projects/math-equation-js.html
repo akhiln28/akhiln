@@ -7,16 +7,8 @@
   <title>Math equation js</title>
   <meta name="date" content="2024-10-22">
   <link rel="stylesheet" href="https://assets.grepwise.com/global.css">
-  <nav style="display: flex; justify-content: space-between; margin-top: 1rem; margin-bottom: 1rem;">
-    <a href="/index">Home</a>
-    <div style="display: flex; gap: 1rem;">
-      <a href="/tech">Tech</a>
-      <a href="/science">Science</a>
-      <a href="/projects">Projects</a>
-      <a href="/about">About</a>
-      <a href="/resume">Resume</a>
-    </div>
-  </nav>
+  <script src="/components.js" type="module"></script>
+  <akhil-header></akhil-header>
 </head>
 
 <body>
@@ -40,7 +32,7 @@
       <th>Description</th>
       <th>Example</th>
     </tr>
-    <tr>
+    <tr id="sub">
       <td>msup</td>
       <td>Superscript: like <code>a^2</code></td>
       <td>
@@ -52,6 +44,7 @@
         </math>
       </td>
     </tr>
+
     <tr>
       <td>msub</td>
       <td>Subscript: like <code>a_2</code></td>
@@ -268,12 +261,11 @@
       </td>
     </tr>
 
-    <tr>
-      <!-- Summation -->
+    <tr id="summation">
       <td>Summation</td>
       <td>like <code>sum_(i=1)^infinity 1/i^2</code></td>
       <td>
-        <math xmlns="http://www.w3.org/1998/Math/MathML" style="display: block;">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
           <munderover>
             <mo>&#x2211;</mo> <!-- Summation symbol Σ -->
             <mrow><mi>i</mi><mo>=</mo><mn>1</mn></mrow>
@@ -287,7 +279,7 @@
       </td>
     </tr>
 
-    <tr>
+    <tr id="limits">
       <!-- Limits -->
       <td>Limits</td>
       <td>like <code>lim_(x->0) sin(x)/x</code></td>
@@ -308,7 +300,7 @@
       </td>
     </tr>
 
-    <tr>
+    <tr id="Logarithm">
       <td>Logarithm</td>
       <td>like <code>log_2(8)</code></td>
       <td>
@@ -322,19 +314,17 @@
       </td>
     </tr>
 
-    <tr>
+    <tr id="Derivative">
       <td>Derivative</td>
-      <td>like <code>frac(d)(dx) f(x)</code></td>
+      <td>like <code>d(f(x))/dx</code></td>
       <td>
         <math xmlns="http://www.w3.org/1998/Math/MathML">
           <mfrac>
-            <mrow><mi>d</mi></mrow>
+            <mrow>
+            <mi>d</mi> <mi>f</mi> <mo>(</mo> <mi>x</mi> <mo>)</mo>
+            </mrow>
             <mrow><mi>d</mi><mi>x</mi></mrow>
           </mfrac>
-          <mi>f</mi>
-          <mo>(</mo>
-          <mi>x</mi>
-          <mo>)</mo>
         </math>
       </td>
     </tr>
@@ -346,14 +336,13 @@
   <p> The grammar is simple, it is similar to asciimath but goal is to cover all the functionality of typst. </p>
 
   <code style="display: block;">
-    primary_expression = { number | identifier | array | function_call | "(" ~ c_expression ~ ")" }
-    <!-- array = { identifier ~ ("[" ~ c_expression ~ "]")+ } -->
-    array = { "[" ~ c_expression ~ "]" }
-    function = { identifier ~ ("(" ~ (c_expression ~ ("," ~ c_expression)*)? ~ ")")+ }
-    prefix_expr = { unary_op+ ~ primary }
-    postfix_expr = { primary ~ unary_op+ }
-    unary_expr = { prefix_expr | postfix_expr | primary }
-    c_expression = { unary_expr ~ (binary_op ~ unary_expr)* }
+    expression := unary_expression ~ (binary_op ~ unary_expression)*
+    unary_expression := primary_expression | prefix_expression | postfix_expression
+    primary_expression :=  number | identifier | array | function_call | "(" ~ expression ~ ")" 
+    array := "[" ~ expression ~ ("," ~ expression)* ~ "]"
+    function_call := identifier ~ ("(" ~ (expression ~ ("," ~ c_expression)*)? ~ ")")+ 
+    prefix_expression := unary_op ~ primary_expression 
+    postfix_expression := primary_expression ~ unary_op 
   </code>
 </body>
 

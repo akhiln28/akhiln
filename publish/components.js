@@ -11,7 +11,7 @@ class AkhilHeader extends HTMLElement {
               <a href="/guide/">Guides</a>
               <a href="/projects/">Projects</a>
               <a href="/about/">About</a>
-              <a href="/resume-without-tailwind/">Resume</a>
+              <a href="/resume.html">Resume</a>
             </div>
           </nav>
         `;

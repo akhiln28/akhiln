@@ -13,13 +13,12 @@
 
 <body>
   <h1 id="document-management">Document management</h1>
-
   <p>In this article we are going to discuss the tools available at our disposal for managing documents (html
     documents).</p>
 
   <p>We want to be able to do the following with ease:</p>
 
-  <h2>Editing html document: faster than editing markdown</h2>
+  <h2 id="editing-html">Editing html document: faster than editing markdown</h2>
   <h4>Problems</h4>
   <ol>
     <li>Renaming/moving html documents: should update the backlinks</li>
@@ -31,10 +30,16 @@
     <li>using nvim/vscode with few plugins makes editing much faster</li>
   </ol>
 
-  <h2>Bulk manipulation</h2>
+  <h2 id="bulk-manipulation">Bulk manipulation</h2>
 
   <p>For bulk manipulation of the documents</p>
 
+  <p>Queries such as: </p>
+  <ul>
+    <li>Removing a certain html tags from the document.</li>
+    <li>Adding a certain html attribute to all the tags in the document.</li>
+    <li>Updating the content of a certain tag in the document.</li>
+  </ul>
   <p>When we have to make changes to multiple documents, we can use the following tools:</p>
 
   <h3 id="sed"><code>sed</code></h3>
@@ -67,7 +72,8 @@
     </code>
   </p>
 
-  <h3><code>jsdom</code> in Javascript</h3>
+  <h3 id="jsdom""><code>jsdom</code> in Javascript</h3>
+
 
   <p>
     As an alternative to using webcomponents, we can use jsdom to manipulate html documents in javascript. For example, if we want to update all occurences of a header in a html document, we can use the following code: <br> 

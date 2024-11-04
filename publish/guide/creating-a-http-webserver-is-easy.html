@@ -1,15 +1,31 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Creating an http webserver</title>
+  <title>Creating an HTTP Webserver</title>
   <link rel="stylesheet" href="https://assets.grepwise.com/global.css">
   <script src="/components.js" type="module"></script>
   <akhil-header></akhil-header>
 </head>
 
 <body>
-  <h1>Creating an http webserver is easy</h1>
+  <h1>Creating an HTTP Webserver is Easy</h1>
+
+  <p>Many would think that creating an HTTP server without a framework is practical. This is not true. Using a framework abstracts away the HTTP protocol, which is not that complicated. Frameworks introduce extra dependencies, often including features you might not need. They also take significant time to learn and can limit your ability to customize the server to your needs. Moreover, when using a framework, you rely on its maintainers to fix bugs, add features, and provide documentation, which is often insufficient.</p>
+
+  <p>When I tried to create a simple HTTP server that needed to send streaming HTTP responses, I faced significant challenges using the Axum framework. Although I eventually succeeded, it required a lot of time and effort sifting through documentation and experimenting with code. However, after discarding the framework and using the standard library, I was able to implement the same functionality much more easily and quickly. I felt free and realized I could do whatever I wanted with the server, without being limited by the framework. Additionally, the compile times were significantly faster compared to the framework and its runtime baggage.</p>
+
+  <p>I am also against using async functions and runtimes in Rust because the type system quickly becomes too complex and unmanageable. Instead of helping, it becomes a burden. I created a simple HTTP server in Rust using the standard library and a small library called httpparse. I created a fixed number of threads to handle incoming requests. This approach performed better than the async runtime in Rust in terms of memory usage and queries per second.</p>
+
+  <p>I am not saying that you should not use a framework or async in Rust. I am saying that you should be aware of the trade-offs and choose the right tool for the job.</p>
+
+  <p>
+    You can find the code at TODO.
+  </p>
+
+  Personally for most of the projects, I would refrain from using any framework or async runtime. I would use the standard library and small libraries that do one thing well. This approach has worked well for me and I have been able to create high performance servers that are easy to maintain and understand.
 </body>
+
 </html>

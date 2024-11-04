@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Creating dlc contract in bitcoin</title>
+  <meta name="date" content="2024-10-28">
+  <link rel="stylesheet" href="https://assets.grepwise.com/global.css">
+  <script src="/components.js" type="module"></script>
+  <akhil-header></akhil-header>
+</head>
+
+<body>
+  <h1>Creating a dlc contract</h1>
+
+  <p>p2pderivatives libraries</p>
+
+  <ul>
+    <li>rust-dlc</li>
+    <li>go-dlc</li>
+    <li>cfd-dlc-js</li>
+  </ul>
+
+  <p>
+    To setup a local bitcoin regtest network, you can use the following command:
+  </p>
+
+  <code style="display: block;">
+    // installing bitcoind
+    brew install bitcoin
+
+    bitcoind -regtest -daemon -fallbackfee=0.0002
+
+    # To create a new address for alice
+    bitcoin-cli -regtest createwallet alice
+    bitcoin-cli -regtest createwallet bob
+
+    # use loadwallet to load the wallet (if you restart bitcoind)
+    bitcoin-cli -regtest loadwallet alice
+    bitcoin-cli -regtest loadwallet bob
+
+    bitcoin-cli -regtest -rpcwallet=alice getwalletinfo
+    bitcoin-cli -regtest -rpcwallet=bob getwalletinfo
+
+    # Generate some blocks to get initial coins
+    bitcoin-cli -regtest generatetoaddress 101 $(bitcoin-cli -regtest -rpcwallet=alice getnewaddress)
+
+    # Send some coins from Alice to Bob
+    bitcoin-cli -regtest -rpcwallet=alice sendtoaddress $(bitcoin-cli -regtest -rpcwallet=bob getnewaddress) 10
+
+    # Check the wallet balances
+    bitcoin-cli -regtest -rpcwallet=alice getbalance
+    bitcoin-cli -regtest -rpcwallet=bob getbalance
+  </code>
+  <p>Both parties alice and bob need to agree to the contract terms</p>
+
+  <h2>Creating a new address for Oracle and Signing an Outcome</h2>
+
+  <p>To create a new address for the oracle:</p>
+
+  <code style="display: block;">
+    # Create a wallet for the oracle
+    bitcoin-cli -regtest createwallet oracle
+
+    # Load the oracle wallet
+    bitcoin-cli -regtest loadwallet oracle
+
+    # Get a new address for the oracle
+    bitcoin-cli -regtest -rpcwallet=oracle getnewaddress
+  </code>
+
+  <p>To sign an outcome with the oracle:</p>
+
+  <code style="display: block;">
+    # Assume the outcome to be signed is "1"
+    # Generate a private key for the outcome
+    oracleprivkey=$(bitcoin-cli -regtest -rpcwallet=oracle dumpprivkey $(bitcoin-cli -regtest -rpcwallet=oracle getnewaddress))
+
+    # Sign the outcome
+    outcome="1"
+    signature=$(bitcoin-cli -regtest -rpcwallet=oracle signmessagewithprivkey $oracleprivkey $outcome)
+
+    bitcoin-cli -regtest -rpcwallet=oracle signmessage $(bitcoin-cli -regtest -rpcwallet=oracle getnewaddress) "my message"
+  </code>
+
+  <h2>Creating a Contract and CETs Based on Oracle Outcome</h2>
+
+  <p>To create a contract between Alice and Bob:</p>
+
+  <code style="display: block;">
+    # Alice and Bob create multisig addresses
+    alice_address=$(bitcoin-cli -regtest -rpcwallet=alice getnewaddress)
+    bob_address=$(bitcoin-cli -regtest -rpcwallet=bob getnewaddress)
+    multisig_address=$(bitcoin-cli -regtest createmultisig 2 "[\"$alice_address\", \"$bob_address\"]" | jq -r '.address')
+
+    # Alice funds the multisig address
+    bitcoin-cli -regtest -rpcwallet=alice sendtoaddress $multisig_address 5
+
+    # Both Alice and Bob create CETs (Contract Execution Transactions)
+    # Example CET creation (details will depend on the specific DLC implementation)
+    # Here we assume they both agree on the outcome "1" signed by the oracle
+
+    # Alice creates her CET
+
+    signed_cet_alice=$(bitcoin-cli -regtest -rpcwallet=alice signrawtransactionwithwallet $cet_alice | jq -r '.hex')
+
+    # Bob createshis CET
+    cet_bob=$(bitcoin-cli -regtest -rpcwallet=bob createrawtransaction "[]" "{\"$alice_address\":5}")
+    signed_cet_bob=$(bitcoin-cli -regtest -rpcwallet=bob signrawtransactionwithwallet $cet_bob | jq -r '.hex')
+
+    # Both parties exchange and verify CETs
+    # Assuming the oracle signature is valid, they can broadcast the appropriate CET
+    bitcoin-cli -regtest sendrawtransaction $signed_cet_alice
+  </code>
+
+</body>
+
+</html>

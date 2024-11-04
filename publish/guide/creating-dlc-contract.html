@@ -7,6 +7,7 @@
   <title>Creating dlc contract in bitcoin</title>
   <meta name="date" content="2024-10-28">
   <link rel="stylesheet" href="https://assets.grepwise.com/global.css">
+  <script src="https://assets.grepwise.com/microlight.js"></script>
   <script src="/components.js" type="module"></script>
   <akhil-header></akhil-header>
 </head>
@@ -25,7 +26,7 @@
   <p>Instead of using the libraries, I find it much easier to execute the contract on a bitcoin regtest using bitcoin-cli.</p>
 
   <h2>Setting up the environment</h2>
-  <code style="display: block;">
+  <code style="display: block;" class="microlight">
     brew install bitcoin
 
     # start bitcoind in regtest mode as a daemon
@@ -75,14 +76,14 @@
   <p>To sign an outcome with the oracle:</p>
 
   <code style="display: block;">
-    bitcoin-cli -regtest -rpcwallet=oracle signmessage $(bitcoin-cli -regtest -rpcwallet=oracle getnewaddress -addresstype legacy) "my message"
+    bitcoin-cli -regtest -rpcwallet=oracle signmessage $(bitcoin-cli -regtest -rpcwallet=oracle getnewaddress -addresstype legacy) "oracle outcome 1"
   </code>
 
   <h2>Creating a Contract and CETs Based on Oracle Outcome</h2>
 
   <p>To create a contract between Alice and Bob:</p>
 
-  <code style="display: block;">
+  <code style="display: block;" class="microlight">
     # Alice and Bob create multisig addresses
     alice_address=$(bitcoin-cli -regtest -rpcwallet=alice getnewaddress)
     bob_address=$(bitcoin-cli -regtest -rpcwallet=bob getnewaddress)
@@ -92,30 +93,35 @@
 
     # Alice funds the multisig address
     bitcoin-cli -regtest -rpcwallet=alice sendtoaddress $multisig_address 5
-    # Check the balance of the multisig address
-    bitcoin-cli -regtest -rpcwallet=alice getreceivedbyaddress $multisig_address
+    # Bob funds the multisig address
+    bitcoin-cli -regtest -rpcwallet=bob sendtoaddress $multisig_address 5
+    <!-- # Check the balance of the multisig address -->
+    <!-- bitcoin-cli -regtest -rpcwallet=alice getreceivedbyaddress $multisig_address -->
+    # alice creates cet for when the outcome is 1
+    <!-- cet_alice_1=$(bitcoin-cli -regtest -rpcwallet=alice createrawtransaction "[]" "{\"$alice_address\":7.5, \"$bob_address\":2.5}") -->
+    cet_alice_1=$(bitcoin-cli -regtest -rpcwallet=alice createrawtransaction "[{\"txid\":\"funding_txid\",\"vout\":0}]" "{\"$alice_address\":7.5, \"$bob_address\":2.5}")
+    signed_cet_alice_1=$(bitcoin-cli -regtest -rpcwallet=alice signrawtransactionwithwallet $cet_alice_1 | jq -r '.hex')
 
-    # Both Alice and Bob create CETs (Contract Execution Transactions)
-    # Example CET creation (details will depend on the specific DLC implementation)
-    # Here we assume they both agree on the outcome "1" signed by the oracle
+    # bob creates cet for when the outcome is 0
+    cet_bob_0=$(bitcoin-cli -regtest -rpcwallet=bob createrawtransaction "[]" "{\"$alice_address\":2.5, \"$bob_address\":7.5}")
+    signed_cet_bob_0=$(bitcoin-cli -regtest -rpcwallet=bob signrawtransactionwithwallet $cet_bob_0 | jq -r '.hex')
 
-    # Alice creates her CET
+    # Oracle signs the outcome 
+    oracle_outcome=1
+    oracle_signature=$(bitcoin-cli -regtest -rpcwallet=oracle signmessage $(bitcoin-cli -regtest -rpcwallet=oracle getnewaddress -addresstype legacy) "$oracle_outcome")
+    # Alice verify the oracle signature
+    bitcoin-cli -regtest -rpcwallet=alice verifymessage $(bitcoin-cli -regtest -rpcwallet=oracle getnewaddress -addresstype legacy) "$oracle_signature" "$oracle_outcome"
 
-    signed_cet_alice=$(bitcoin-cli -regtest -rpcwallet=alice signrawtransactionwithwallet $cet_alice | jq -r '.hex')
-
-    # Bob createshis CET
-    cet_bob=$(bitcoin-cli -regtest -rpcwallet=bob createrawtransaction "[]" "{\"$alice_address\":5}")
-    signed_cet_bob=$(bitcoin-cli -regtest -rpcwallet=bob signrawtransactionwithwallet $cet_bob | jq -r '.hex')
-
-    # Both parties exchange and verify CETs
     # Assuming the oracle signature is valid, they can broadcast the appropriate CET
     bitcoin-cli -regtest sendrawtransaction $signed_cet_alice
+    bitcoin-cli -regtest sendrawtransaction $signed_cet_bob
   </code>
 
   <h2>Challenges</h2>
   <ul>
     <li>createmultisig: Invalid public key: resolved by using public key instead of multisig address</li>
     <li>signmessage: Address does not refer to key: resolved by using legacy address when calling getnewaddress</li>
+    <li>getreceivedbyaddress: Address not found in wallet (when looking for the amount received by the multisig_address): </li>
   </ul>
 
   <h2>References</h2>

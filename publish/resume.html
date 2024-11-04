@@ -4,8 +4,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Akhil Nichenametla</title>
   <link rel="stylesheet" href="https://assets.grepwise.com/global.css">
+  <title class="primary-6">Akhil Nichenametla</title>
   <style>
     header {
       display: flex;
@@ -31,6 +31,10 @@
         grid-template-columns: 1fr 1fr;
       }
     }
+
+    body {
+      max-width: 1200px;
+    }
   </style>
 </head>
 
@@ -42,7 +46,7 @@
       <a href="mailto:akhil28111997@gmail.com">akhil28111997@gmail.com</a>
     </address>
     <div style="display: flex; flex-direction: column; align-items: center;">
-      <h1>AKHIL NICHENAMETLA</h1>
+      <h1 class="primary-6">AKHIL NICHENAMETLA</h1>
       <p>Software Engineer</p>
     </div>
     <div style="display: flex; flex-direction: column; align-items: center; justify-content: center;">
@@ -54,10 +58,12 @@
         <img src="./linkedin.svg" alt="linkedin icon" height="16px" width="16px">
         <span>akhiln28</span>
       </a>
-      <a href="https://akhiln.org">akhiln.org</a>
+      <a href="https://akhiln.org" target="_blank">
+        <span> 🌐 akhiln.org </span>
+      </a>
     </div>
   </header>
-  <hr>
+  <hr class="primary-1" style="border: 0.5px solid;">
   <main>
     <section>
       <p>
@@ -69,8 +75,8 @@
     </section>
     <div class="columnsContainer">
       <section>
-        <h2>Work Experience</h2>
-        <hr>
+        <h2 id="WorkExperience" class="primary-6">Work Experience</h2>
+        <hr class="primary-1" style="border: 0.5px solid;">
         <div style="display: flex; flex-direction: column; gap: 0.5rem;">
           <section>
             <div style="display: flex; flex-direction: row; justify-content: space-between; align-items: center;">
@@ -80,7 +86,7 @@
                 <span>2023 May - Present</span>
               </div>
             </div>
-            <hr>
+            <hr class="primary-1" style="border: 0.5px solid;">
             <ul>
               <li>Configured bare metal servers for the deployment of blockchain nodes and wallet
                 backend. This involves setting up the network and enabling the communication between
@@ -99,7 +105,6 @@
                 parallelizable tasks to
                 GPU using opencl c</li>
             </ul>
-
           </section>
           <div>
             <div style="display: flex; flex-direction: row; justify-content: space-between; align-items: center;">
@@ -109,7 +114,7 @@
                 <span>2022 July - 2023 Feb</span>
               </div>
             </div>
-            <hr>
+            <hr class="primary-1" style="border: 0.5px solid;">
             <ul>
               <li>Design and implementation of issues when the IFSC code of the bank changes.</li>
               <li>Developed server-side APIs for Aadhaar based user onboarding in GPay.</li>
@@ -123,8 +128,8 @@
                 <span>2021 Mar - 2022 July</span>
               </div>
             </div>
-            <hr class="my-2">
-            <ul class="list-disc list-outside mx-4 my-2">
+            <hr class="primary-1" style="border: 0.5px solid;">
+            <ul>
               <li>Developed microservices for orchestrating and monitoring AWS batch jobs which is
                 used across the teams at Joveo.</li>
               <li>Created a multi project template for spring boot application with CI/CD that made it
@@ -141,8 +146,8 @@
                 <span>2019 June - 2021 March</span>
               </div>
             </div>
-            <hr class="my-2">
-            <ul class="list-disc list-outside mx-4 my-2">
+            <hr class="primary-1" style="border: 0.5px solid;">
+            <ul>
               <li>Developed a visual solution platform in c++ in the hardware abstraction layer which
                 got adopted by the S - series flagship smartphones and several other models. </li>
               <li>Reduced the average response time for Multi frame HDR camera solution by 30%. </li>
@@ -154,9 +159,9 @@
           </div>
         </div>
       </section>
-      <section class="bg-white shadow-md rounded-md p-4 mb-4" id="projects">
-        <h2>Projects</h2>
-        <hr>
+      <section>
+        <h2 id="Projects" class="primary-6">Projects</h2>
+        <hr class="primary-1" style="border: 0.5px solid;">
 
         <div style="display: flex; flex-direction: column; gap: 1rem;">
           <div>
@@ -164,7 +169,7 @@
               <h3>HomeLab Setup</h3>
               <span>2024</span>
             </div>
-            <hr>
+            <hr class="primary-1" style="border: 0.5px solid;">
             <p>
               Configured a HomeLab setup that allows for the deployment of multiple
               microservices and database servers on a cluster. Additionally, I have set up networking
@@ -178,7 +183,7 @@
               <h3>Trading platform</h3>
               <span>2024</span>
             </div>
-            <hr>
+            <hr class="primary-1" style="border: 0.5px solid;">
             <p>
               Developed a trading platform that allows users to deploy various strategies using
               ohlc/live
@@ -193,7 +198,7 @@
               <h3>Question answering using RAG</h3>
               <span>2023</span>
             </div>
-            <hr class="my-2">
+            <hr class="primary-1" style="border: 0.5px solid;">
             <p>
               Created a RAG application that can query the internal knowledge base and answer the
               questions. The application periodically indexes the internal knowledge base (in github)
@@ -206,7 +211,7 @@
               <h3>Compiler for mini Rust</h3>
               <span>2023</span>
             </div>
-            <hr>
+            <hr class="primary-1" style="border: 0.5px solid;">
             <p>
               Created a compiler for mini Rust language that compiles the code to three address code
               which is used to generate the trace which is further used to generate the stark proof
@@ -218,7 +223,8 @@
               <h3>Financial news data</h3>
               <span>2023</span>
             </div>
-            <hr class="my-2">
+            <!-- <hr class="my-2"> -->
+            <hr class="primary-1" style="border: 0.5px solid;">
             <p>
               Created an application that can get the latest news from top financial websites in India
               through RSS/Atom feeds and extract useful information such as the securities/industries,
@@ -231,7 +237,8 @@
               <h3>Expense tracker</h3>
               <span>2022</span>
             </div>
-            <hr class="my-2">
+            <!-- <hr class="my-2"> -->
+            <hr class="primary-1" style="border: 0.5px solid;">
             <p>Created a fullstack expense tracker with complete server side rendering
               and vanilla <span class="font-bold">Javascript</span> for the frontend. Used <span
                 class="font-semibold">Spring boot</span> and handlebars in <span class="font-bold">Java</span> to
@@ -245,7 +252,8 @@
               <h3>Delaunay triangulation</h3>
               <span>2018</span>
             </div>
-            <hr class="my-2">
+            <!-- <hr class="my-2"> -->
+            <hr class="primary-1" style="border: 0.5px solid;">
             <p>Parallelized the computation Delaunay triangulation of a set of points in 2d plane using
               jump flooding algorithm in Cuda C++ that works on the Nvidia GPU.
             </p>
@@ -254,45 +262,46 @@
       </section>
 
       <section>
-        <h2>Education</h2>
-        <hr>
+        <!-- <h2 id="Education">Education</h2> -->
+        <h2 id="Education" class="primary-6">Education</h2>
+        <hr class="primary-1" style="border: 0.5px solid;">
         <div style="display: flex; flex-direction: column; gap: 1rem;">
-          <div style="display: flex; flex-direction: row; justify-content: space-between; align-items: center;">
+          <div style="display: flex; flex-direction: row; justify-content: space-between; align-items: start;">
             <h3>BTech in Computer science</h3>
-            <div style="display: flex; flex-direction: column; align-items: center;">
+            <div style="display: flex; flex-direction: column; align-items: end;">
               <span>Indian Institute of Technology Madras</span>
               <span>2015 - 2019</span>
             </div>
           </div>
-          <div style="display: flex; flex-direction: row; justify-content: space-between; align-items: center;">
+          <div style="display: flex; flex-direction: row; justify-content: space-between; align-items: start;">
             <h3>XII</h3>
-            <div style="display: flex; flex-direction: column; align-items: center;">
+            <div style="display: flex; flex-direction: column; align-items: end;">
               <span>Sri Chaitanya Narayana Junior College</span>
               <span>2013 - 2015</span>
             </div>
           </div>
-          <div style="display: flex; flex-direction: row; justify-content: space-between; align-items: center;">
+          <div style="display: flex; flex-direction: row; justify-content: space-between; align-items: start;">
             <h3>X</h3>
-            <div style="display: flex; flex-direction: column; align-items: center;">
+            <div style="display: flex; flex-direction: column; align-items: end;">
               <span>Dr. KKR Gowthan Concept School</span>
               <span>2013 - 2015</span>
             </div>
           </div>
         </div>
       </section>
-      <section class="mb-4">
-        <h2>Technologies</h2>
-        <hr>
+      <section>
+        <h2 id="technologies" class="primary-6">Technologies</h2>
+        <hr class="primary-1" style="border: 0.5px solid;">
         <div>
           <p><b>Programming languages</b>: C, C++, Rust, Go, Java, Python, Javascript</p>
           <p><b>Web technologies</b>: RESTful Services, Web frameworks, Fullstack applications </p>
           <p><b>Database</b>: PostgreSQL, Sqlite, MongoDB, Redis</p>
-          <p><b>Others</b>: AWS, On-Prem, Linux</p>
+          <p><b>Others</b>: AWS, On-Prem, Linux, Nginx</p>
         </div>
       </section>
       <section>
-        <h2>Relevant Courses</h2>
-        <hr>
+        <h2 id="RelevantCourses" class="primary-6">Relevant Courses</h2>
+        <hr class="primary-1" style="border: 0.5px solid;">
         <ol style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem;">
           <li>Data structures and algorithms</li>
           <li>Pattern Recognition and ML</li>
@@ -310,9 +319,10 @@
           <li>Design and analysis of Algorithms</li>
         </ol>
       </section>
-      <section class="mb-4">
-        <h2>Scholastic achievements</h2>
-        <hr>
+      <section>
+        <!-- <h2>Scholastic achievements</h2> -->
+        <h2 id="ScholasticAchievements" class="primary-6">Scholastic Achievements</h2>
+        <hr class="primary-1" style="border: 0.5px solid;">
         <ul>
           <li>Samsung Employee Citizen Award </li>
           <li>Samsung Team Excellence Award</li>

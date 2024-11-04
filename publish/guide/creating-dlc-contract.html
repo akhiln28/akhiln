@@ -14,7 +14,7 @@
 <body>
   <h1>Creating a dlc contract</h1>
 
-  <p>p2pderivatives libraries</p>
+  <p>I am trying to create a dlc contract in bitcoin. I found few libraries in multiple programming languages by p2pderivatives</p>
 
   <ul>
     <li>rust-dlc</li>
@@ -22,14 +22,13 @@
     <li>cfd-dlc-js</li>
   </ul>
 
-  <p>
-    To setup a local bitcoin regtest network, you can use the following command:
-  </p>
+  <p>Instead of using the libraries, I find it much easier to execute the contract on a bitcoin regtest using bitcoin-cli.</p>
 
+  <h2>Setting up the environment</h2>
   <code style="display: block;">
-    // installing bitcoind
     brew install bitcoin
 
+    # start bitcoind in regtest mode as a daemon
     bitcoind -regtest -daemon -fallbackfee=0.0002
 
     # To create a new address for alice
@@ -52,16 +51,19 @@
     # Check the wallet balances
     bitcoin-cli -regtest -rpcwallet=alice getbalance
     bitcoin-cli -regtest -rpcwallet=bob getbalance
+
+    # To delete a wallet (if you want to start fresh)
+    bitcoin-cli -regtest unloadwallet alice
   </code>
+
   <p>Both parties alice and bob need to agree to the contract terms</p>
 
-  <h2>Creating a new address for Oracle and Signing an Outcome</h2>
-
+  <h2>Oracle</h2>
   <p>To create a new address for the oracle:</p>
 
   <code style="display: block;">
-    # Create a wallet for the oracle
-    bitcoin-cli -regtest createwallet oracle
+    # Create a wallet for the oracle (to be able to sign messages)
+    bitcoin-cli -regtest createwallet oracle false false ""
 
     # Load the oracle wallet
     bitcoin-cli -regtest loadwallet oracle
@@ -73,15 +75,7 @@
   <p>To sign an outcome with the oracle:</p>
 
   <code style="display: block;">
-    # Assume the outcome to be signed is "1"
-    # Generate a private key for the outcome
-    oracleprivkey=$(bitcoin-cli -regtest -rpcwallet=oracle dumpprivkey $(bitcoin-cli -regtest -rpcwallet=oracle getnewaddress))
-
-    # Sign the outcome
-    outcome="1"
-    signature=$(bitcoin-cli -regtest -rpcwallet=oracle signmessagewithprivkey $oracleprivkey $outcome)
-
-    bitcoin-cli -regtest -rpcwallet=oracle signmessage $(bitcoin-cli -regtest -rpcwallet=oracle getnewaddress) "my message"
+    bitcoin-cli -regtest -rpcwallet=oracle signmessage $(bitcoin-cli -regtest -rpcwallet=oracle getnewaddress -addresstype legacy) "my message"
   </code>
 
   <h2>Creating a Contract and CETs Based on Oracle Outcome</h2>
@@ -92,10 +86,14 @@
     # Alice and Bob create multisig addresses
     alice_address=$(bitcoin-cli -regtest -rpcwallet=alice getnewaddress)
     bob_address=$(bitcoin-cli -regtest -rpcwallet=bob getnewaddress)
-    multisig_address=$(bitcoin-cli -regtest createmultisig 2 "[\"$alice_address\", \"$bob_address\"]" | jq -r '.address')
+    alice_pubkey=$(bitcoin-cli -regtest -rpcwallet=alice getaddressinfo $alice_address | jq -r '.pubkey')
+    bob_pubkey=$(bitcoin-cli -regtest -rpcwallet=bob getaddressinfo $bob_address | jq -r '.pubkey')
+    multisig_address=$(bitcoin-cli -regtest createmultisig 2 "[\"$alice_pubkey\", \"$bob_pubkey\"]" | jq -r '.address')
 
     # Alice funds the multisig address
     bitcoin-cli -regtest -rpcwallet=alice sendtoaddress $multisig_address 5
+    # Check the balance of the multisig address
+    bitcoin-cli -regtest -rpcwallet=alice getreceivedbyaddress $multisig_address
 
     # Both Alice and Bob create CETs (Contract Execution Transactions)
     # Example CET creation (details will depend on the specific DLC implementation)
@@ -114,6 +112,16 @@
     bitcoin-cli -regtest sendrawtransaction $signed_cet_alice
   </code>
 
+  <h2>Challenges</h2>
+  <ul>
+    <li>createmultisig: Invalid public key: resolved by using public key instead of multisig address</li>
+    <li>signmessage: Address does not refer to key: resolved by using legacy address when calling getnewaddress</li>
+  </ul>
+
+  <h2>References</h2>
+  <ul>
+    <li><a href="https://developer.bitcoin.org/reference/rpc/">bitcoin rpc reference</a></li>
+  </ul>
 </body>
 
 </html>

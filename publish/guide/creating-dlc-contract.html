@@ -14,7 +14,6 @@
 
 <body>
   <h1>Creating a dlc contract</h1>
-
   <p>I am trying to create a dlc contract in bitcoin. I found few libraries in multiple programming languages by p2pderivatives</p>
 
   <ul>
@@ -70,13 +69,16 @@
     bitcoin-cli -regtest loadwallet oracle
 
     # Get a new address for the oracle
-    bitcoin-cli -regtest -rpcwallet=oracle getnewaddress
+    oracle_address=$(bitcoin-cli -regtest -rpcwallet=oracle getnewaddress -addresstype legacy)
   </code>
 
   <p>To sign an outcome with the oracle:</p>
 
   <code style="display: block;">
-    bitcoin-cli -regtest -rpcwallet=oracle signmessage $(bitcoin-cli -regtest -rpcwallet=oracle getnewaddress -addresstype legacy) "oracle outcome 1"
+    bitcoin-cli -regtest -rpcwallet=oracle signmessage $oracle_address "oracle outcome 1"
+
+    # Verify the signature
+    bitcoin-cli -regtest -rpcwallet=alice verifymessage $oracle_address "signature" "oracle outcome 1"
   </code>
 
   <h2>Creating a Contract and CETs Based on Oracle Outcome</h2>
@@ -92,36 +94,45 @@
     multisig_address=$(bitcoin-cli -regtest createmultisig 2 "[\"$alice_pubkey\", \"$bob_pubkey\"]" | jq -r '.address')
 
     # Alice funds the multisig address
-    bitcoin-cli -regtest -rpcwallet=alice sendtoaddress $multisig_address 5
+    alice_fund_txn=$(bitcoin-cli -regtest -rpcwallet=alice sendtoaddress $multisig_address 5)
     # Bob funds the multisig address
-    bitcoin-cli -regtest -rpcwallet=bob sendtoaddress $multisig_address 5
+    bob_fund_txn=$(bitcoin-cli -regtest -rpcwallet=bob sendtoaddress $multisig_address 5)
     <!-- # Check the balance of the multisig address -->
     <!-- bitcoin-cli -regtest -rpcwallet=alice getreceivedbyaddress $multisig_address -->
+
     # alice creates cet for when the outcome is 1
-    <!-- cet_alice_1=$(bitcoin-cli -regtest -rpcwallet=alice createrawtransaction "[]" "{\"$alice_address\":7.5, \"$bob_address\":2.5}") -->
-    cet_alice_1=$(bitcoin-cli -regtest -rpcwallet=alice createrawtransaction "[{\"txid\":\"funding_txid\",\"vout\":0}]" "{\"$alice_address\":7.5, \"$bob_address\":2.5}")
+    cet_alice_1=$(bitcoin-cli -regtest -rpcwallet=alice createrawtransaction "[{\"txid\":\"$alice_fund_txn\",\"vout\":0}]" "{\"$alice_address\":7.5}")
+    # todo: we need to create adaptor signatures
     signed_cet_alice_1=$(bitcoin-cli -regtest -rpcwallet=alice signrawtransactionwithwallet $cet_alice_1 | jq -r '.hex')
+    cet_alice_0=$(bitcoin-cli -regtest -rpcwallet=alice createrawtransaction "[{\"txid\":\"$alice_fund_txn\",\"vout\":0}]" "{\"$alice_address\":2.5}")
 
     # bob creates cet for when the outcome is 0
-    cet_bob_0=$(bitcoin-cli -regtest -rpcwallet=bob createrawtransaction "[]" "{\"$alice_address\":2.5, \"$bob_address\":7.5}")
-    signed_cet_bob_0=$(bitcoin-cli -regtest -rpcwallet=bob signrawtransactionwithwallet $cet_bob_0 | jq -r '.hex')
+    cet_bob_0=$(bitcoin-cli -regtest -rpcwallet=bob createrawtransaction "[{\"txid\":\"$bob_fund_txn\",\"vout\":0}]" "{\"$bob_address\":7.5}")
+    cet_bob_1=$(bitcoin-cli -regtest -rpcwallet=bob createrawtransaction "[{\"txid\":\"$bob_fund_txn\",\"vout\":0}]" "{\"$bob_address\":2.5}")
+    # todo: we need to create adaptor signatures
+    signed_cet_bob_1=$(bitcoin-cli -regtest -rpcwallet=bob signrawtransactionwithwallet $cet_bob_1 | jq -r '.hex')
 
     # Oracle signs the outcome 
     oracle_outcome=1
-    oracle_signature=$(bitcoin-cli -regtest -rpcwallet=oracle signmessage $(bitcoin-cli -regtest -rpcwallet=oracle getnewaddress -addresstype legacy) "$oracle_outcome")
+    oracle_signature=$(bitcoin-cli -regtest -rpcwallet=oracle signmessage $oracle_address "$oracle_outcome")
+
     # Alice verify the oracle signature
-    bitcoin-cli -regtest -rpcwallet=alice verifymessage $(bitcoin-cli -regtest -rpcwallet=oracle getnewaddress -addresstype legacy) "$oracle_signature" "$oracle_outcome"
+    bitcoin-cli -regtest -rpcwallet=alice verifymessage $oracle_address "$oracle_signature" "$oracle_outcome"
 
     # Assuming the oracle signature is valid, they can broadcast the appropriate CET
-    bitcoin-cli -regtest sendrawtransaction $signed_cet_alice
-    bitcoin-cli -regtest sendrawtransaction $signed_cet_bob
+    # todo: 
+    bitcoin-cli -regtest sendrawtransaction $signed_cet_alice_1
+    bitcoin-cli -regtest sendrawtransaction $signed_cet_bob_0
   </code>
+
+  <h2>Creating adaptor signature</h2>
 
   <h2>Challenges</h2>
   <ul>
     <li>createmultisig: Invalid public key: resolved by using public key instead of multisig address</li>
     <li>signmessage: Address does not refer to key: resolved by using legacy address when calling getnewaddress</li>
     <li>getreceivedbyaddress: Address not found in wallet (when looking for the amount received by the multisig_address): </li>
+    <li>signrawtransactionwithwallet: TX decode failed. Make sure the tx has at least one input.</li>
   </ul>
 
   <h2>References</h2>

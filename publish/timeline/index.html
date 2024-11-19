@@ -19,81 +19,111 @@
 </head>
 
 <body>
-  <table>
-    <tr>
-      <th>Date</th>
-      <th>Description</th>
-    </tr>
-    <tr>
-      <td>2024-11-04</td>
-      <td>
-        <p>Using treesitter to parse source code and also list function signatures.</p>
-        <p>Able to sign message using bitcoin-cli.</p>
-      </td>
-    </tr>
-    <tr>
-      <td>2024-11-03</td>
-      <td>
-        <p>Math equations are not being parsed correctly, the grammar doesn't work for equations right now, it only works for expressions, will fix it.</p>
-      </td>
-    </tr>
-    <tr>
-      <td>2024-11-02</td>
-      <td>
-        <p>Able to render simple math expressions in html using javascript.</p>
-      </td>
-    </tr>
-    <tr>
-      <td>2024-10-31</td>
-      <td>
-        <p> Able to parse simple math expressions in javascript. Tried typescript as well just for testing, but realized that it increases the complexity much more than expected. So, sticking to vanilla js for parsing and generating math ml for <a href="../projects/math-equation-js.html">Math math-equation-js</a> </p>
-      </td>
-    </tr>
-    <tr>
-      <td>2024-10-30</td>
-      <td>
-        <p>Realized that using jsdoc comments, we don't need to use typescript. Most essential features of the
-          typescript can be achieved with jsdoc comments. Typechecking can be achieved using <code>deno lint</code></p>
-        <p>Having a hardtime signing a message by a wallet created using bitcoin-cli <a href="../guide/creating-dlc-contract.html">creating-dlc-contract</a></p>
-      </td>
-    </tr>
-    <tr>
-      <td> 2024-10-29 </td>
-      <td>
-        <p>Found that pandoc supports lua for customizing the conversion for documents (markdown to html).</p>
-        <p>I wish there was a way to analyze the data in memory like in jupyter notebooks in python but across multiple languages and also using cli. That is a combination of jupyter notebooks and redis like server that can store the data in memory and then perform the analysis on that data from multiple clients. <a href="../projects/data-analysis-tool.html">data-analysis-tool</a> </p>
-      </td>
-    </tr>
-    <tr>
-      <td>2024-10-28</td>
-      <td>
-        <p> Created a simple parser for math expressions/equations in rust. The parser is able to create a struct for the expression in rust. Compiled it to wasm using cargo with target wasm32-unknown-unknown. But having a hard time using it in the browser. I am able to use it with <code>wasm_bindgen</code> crate, but I don't want to abstract away the wasm binary with dependencies. I want to use the wasm binary directly in the browser. <a href="../projects/math-equation-js.html">Math equation</a>. Writing the parser and math ml generator in javascript isn't too hard, I just find the rust implementation much more elegant/maintainable/easier to manage compared to the javascript code which doesn't have types and is little verbose. </p>
-      </td>
-    </tr>
-    <tr>
-      <td>2024-10-27</td>
-      <td>
-        <p> Got an idea to make English language formal. The idea is to define the English language as a context free grammar. This way, generating the next sequence of tokens will be easy for training a language model. <a href="../projects/making-english-formal.html">Making English Language Formal</a> </p>
-      </td>
-    </tr>
-    <tr>
-      <td>2024-10-25</td>
-      <td>
-        <p>For custom webcomponent, we don't need to worry about styling the component by not using shadow dom. The main purpose of shadow dom is to isolate the elements in shadow dom so that they don't inherit the styling from the main dom. Now, I don't have any reason to use react.</p>
-        <p>Basic parser implementation is done for expression in rust <a href="../projects/math-equation-js.html">math equation</a></p>
-      </td>
-    </tr>
-    <tr>
-      <td>2024-10-24</td>
-      <td>
-        <p>Started working on math equation js project. Realized that firefox has much better support for mathml compared to chrome. There are few things not working in chrome when display is set to block, the fractions are rendered in out of proportion.</p>
-      </td>
-    </tr>
-    <tr>
-      <td>2024-10-23</td>
-      <td></td>
-    </tr>
-  </table>
+
+<table>
+<tr>
+<th>Date</th>
+<th>Description</th>
+</tr>
+
+<tr>
+<td>2024-11-19</td>
+<p>
+Thinking of creating a mini programming language that compiles much faster than c,c++ or rust by using inplace binary patching. It will not contain any standard library. I want to create programming language that is so much more scalable than langauges like rust, c++.  
+</p>
+</tr>
+
+<tr>
+<td>2024-11-11</td>
+<td>
+<p>
+Found that ollama and mistral-rs has openai api compatibility. I can use them in the cli tool that I am developing for interacting with all these models. 
+</p>
+<p>
+Found that the funding transaction that is created by both alice and bob is same during the execution of a simple coin toss dlc. Realized that, the offer proposer has access to the utxo of both parties. So, the proposer can create the funding transaction and then share it with the other party. 
+</p>
+</td>
+</tr>
+
+<tr>
+<td>2024-11-05</td>
+<td>
+<p>Found that we can't create adaptor signatures using bitcoin-cli, we have to use dlc libraries in programming languages to create them. Adaptor signature is essential for creating CETs in dlc. <a href="../guide/creating-dlc-contract.html">dlc contract</a></p>
+</td>
+</tr>
+
+<tr>
+<td>2024-11-04</td>
+<td>
+<p>Using treesitter to parse source code and also list function signatures.</p>
+<p>Able to sign message using bitcoin-cli.</p>
+</td>
+</tr>
+
+<tr>
+<td>2024-11-03</td>
+<td>
+<p>Math equations are not being parsed correctly, the grammar doesn't work for equations right now, it only works for expressions, will fix it.</p>
+</td>
+</tr>
+
+<tr>
+<td>2024-11-02</td>
+<td>
+<p>Able to render simple math expressions in html using javascript.</p>
+</td>
+</tr>
+<tr>
+<td>2024-10-31</td>
+<td>
+<p> Able to parse simple math expressions in javascript. Tried typescript as well just for testing, but realized that it increases the complexity much more than expected. So, sticking to vanilla js for parsing and generating math ml for <a href="../projects/math-equation-js.html">Math math-equation-js</a> </p>
+</td>
+</tr>
+<tr>
+<td>2024-10-30</td>
+<td>
+<p>Realized that using jsdoc comments, we don't need to use typescript. Most essential features of the
+  typescript can be achieved with jsdoc comments. Typechecking can be achieved using <code>deno lint</code></p>
+<p>Having a hardtime signing a message by a wallet created using bitcoin-cli <a href="../guide/creating-dlc-contract.html">creating-dlc-contract</a></p>
+</td>
+</tr>
+<tr>
+<td> 2024-10-29 </td>
+<td>
+<p>Found that pandoc supports lua for customizing the conversion for documents (markdown to html).</p>
+<p>I wish there was a way to analyze the data in memory like in jupyter notebooks in python but across multiple languages and also using cli. That is a combination of jupyter notebooks and redis like server that can store the data in memory and then perform the analysis on that data from multiple clients. <a href="../projects/data-analysis-tool.html">data-analysis-tool</a> </p>
+</td>
+</tr>
+<tr>
+<td>2024-10-28</td>
+<td>
+<p> Created a simple parser for math expressions/equations in rust. The parser is able to create a struct for the expression in rust. Compiled it to wasm using cargo with target wasm32-unknown-unknown. But having a hard time using it in the browser. I am able to use it with <code>wasm_bindgen</code> crate, but I don't want to abstract away the wasm binary with dependencies. I want to use the wasm binary directly in the browser. <a href="../projects/math-equation-js.html">Math equation</a>. Writing the parser and math ml generator in javascript isn't too hard, I just find the rust implementation much more elegant/maintainable/easier to manage compared to the javascript code which doesn't have types and is little verbose. </p>
+</td>
+</tr>
+<tr>
+<td>2024-10-27</td>
+<td>
+<p> Got an idea to make English language formal. The idea is to define the English language as a context free grammar. This way, generating the next sequence of tokens will be easy for training a language model. <a href="../projects/making-english-formal.html">Making English Language Formal</a> </p>
+</td>
+</tr>
+<tr>
+<td>2024-10-25</td>
+<td>
+<p>For custom webcomponent, we don't need to worry about styling the component by not using shadow dom. The main purpose of shadow dom is to isolate the elements in shadow dom so that they don't inherit the styling from the main dom. Now, I don't have any reason to use react.</p>
+<p>Basic parser implementation is done for expression in rust <a href="../projects/math-equation-js.html">math equation</a></p>
+</td>
+</tr>
+<tr>
+<td>2024-10-24</td>
+<td>
+<p>Started working on math equation js project. Realized that firefox has much better support for mathml compared to chrome. There are few things not working in chrome when display is set to block, the fractions are rendered in out of proportion.</p>
+</td>
+</tr>
+<tr>
+<td>2024-10-23</td>
+<td></td>
+</tr>
+</table>
 </body>
 
 </html>

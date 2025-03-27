@@ -4,8 +4,9 @@ version = "0.1.0"
 edition = "2021"
 
 [dependencies]
-httplib = { git = "ssh://git@github.com/grepwise/rust-crates.git", branch = "main" }
-log = { git = "ssh://git@github.com/grepwise/rust-crates.git", branch = "main" }
-command = { git = "ssh://git@github.com/grepwise/rust-crates.git", branch = "main" }
+httplib = { git = "ssh://git@github.com/grepwise/rust-crates.git", tag = "2025-02-19.1", features = ["serve"]}
+log = { git = "ssh://git@github.com/grepwise/rust-crates.git" , tag = "2025-02-19.1"}
+command = { git = "ssh://git@github.com/grepwise/rust-crates.git" , tag = "2025-02-19.1"}
 httparse = "1.9.4"
+markdown = "0.3.0"
 

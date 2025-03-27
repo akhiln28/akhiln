@@ -1,4 +1,4 @@
-create a basic grammar for english paragraph and sentences if it were to be a formal language and to be parsed by a program.  
+Create a basic grammar for english paragraph and sentences if it were to be a formal language and to be parsed by a program.  
 
 ```bnf
 sentence := declarative | interrogative | imperative | exclamatory

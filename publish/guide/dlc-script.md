@@ -1,3 +1,4 @@
+# DLC Script
 1. First, you already have:
 - Multisig address created with Alice and Bob's pubkeys
 - Funding transactions from both Alice and Bob to the multisig address

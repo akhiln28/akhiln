@@ -4,7 +4,7 @@ use log::log_debug;
 use std::io::Write;
 use std::net::TcpStream;
 
-pub const FOLDER_PATH: &str = "publish/";
+pub const FOLDER_PATH: &str = "publish";
 
 // TODO: create command to generate the sitemap from the folder path
 fn main() -> Result<(), String> {

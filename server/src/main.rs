@@ -3,14 +3,8 @@ use httplib::{health_check, parse_http_request, serve_static_file, start_server}
 use log::log_debug;
 use std::io::Write;
 use std::net::TcpStream;
-use std::sync::LazyLock;
 
-pub static PATHS_EXCLUDED_FROM_AUTH: [&str; 1] = ["/api/healthcheck"];
-
-pub static FOLDER_PATH: LazyLock<String> = std::sync::LazyLock::new(|| {
-    let static_dir = std::env::var("FOLDER_PATH").expect("FOLDER_PATH not set");
-    return static_dir;
-});
+pub const FOLDER_PATH: &str = "publish/";
 
 // TODO: create command to generate the sitemap from the folder path
 fn main() -> Result<(), String> {
@@ -54,7 +48,7 @@ fn main() -> Result<(), String> {
 fn handle_http_request(mut stream: TcpStream) -> Result<(), String> {
     let request = parse_http_request(&mut stream)?;
 
-    let files_path = format!("{}", FOLDER_PATH.as_str());
+    let files_path = format!("{}", FOLDER_PATH);
     if let Some(file_response) = serve_static_file(&&files_path, &request.path) {
         stream.write_all(&file_response).unwrap();
         return stream
@@ -65,7 +59,7 @@ fn handle_http_request(mut stream: TcpStream) -> Result<(), String> {
     let start_time = std::time::Instant::now();
     let response: Result<Vec<u8>, httplib::HttpError> =
         match (request.method.as_str(), request.path.as_str()) {
-            ("GET", "/api/healthcheck") => Ok(health_check()),
+            ("GET", "/healthcheck") => Ok(health_check()),
             _ => Err(httplib::HttpError {
                 status_code: 405,
                 message: format!(
